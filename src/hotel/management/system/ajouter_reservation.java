@@ -44,6 +44,7 @@ public class ajouter_reservation extends javax.swing.JFrame {
         nb_pers = new javax.swing.JSpinner();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        aff_client = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Ajouter reservation");
@@ -101,6 +102,13 @@ public class ajouter_reservation extends javax.swing.JFrame {
         jScrollPane5.setViewportView(jTable1);
         jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
+        aff_client.setText("afficher les clients");
+        aff_client.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aff_clientActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -141,7 +149,11 @@ public class ajouter_reservation extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(nb_pers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(aff_client)
+                .addGap(177, 177, 177))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,13 +182,15 @@ public class ajouter_reservation extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nb_pers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(aff_client)
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         pack();
@@ -186,7 +200,7 @@ public class ajouter_reservation extends javax.swing.JFrame {
 
         try {
             Connection con = ConnectionProvider.getCon();
-            pst = con.prepareStatement("Select id_chambre , capacite,prix from chambre where capacite >= ? and status_='disponible' ");
+            pst = con.prepareStatement("Select id_chambre , capacite,prix from chambre where capacite >= ? and status_ !='En Rénovation' ");
             pst.setString(1, nb_pers.getValue().toString());
             rst = pst.executeQuery();
 
@@ -273,6 +287,11 @@ public class ajouter_reservation extends javax.swing.JFrame {
         id_ch.setText(idValue.toString());
     }//GEN-LAST:event_jTable1MouseClicked
 
+    private void aff_clientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aff_clientActionPerformed
+        
+        new Consulter_client().setVisible(true);
+    }//GEN-LAST:event_aff_clientActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -309,6 +328,7 @@ public class ajouter_reservation extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton aff_client;
     private javax.swing.JButton ajouter;
     private javax.swing.JTextPane client_id;
     private javax.swing.JTextPane date_deb;
