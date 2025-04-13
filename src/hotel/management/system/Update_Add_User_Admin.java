@@ -333,9 +333,8 @@ public class Update_Add_User_Admin extends javax.swing.JFrame {
                 txtID.setEditable(false);
                 txtID.setEnabled(true);  // Make it visible but not editable
                 PreparedStatement st = con.prepareStatement("insert into appuser (userRole,username,password) " + "VALUES('User',?,?)");
-                st.setString(1, "User");
-                st.setString(2, Username);
-                st.setString(3, Password);
+                st.setString(1, Username);
+                st.setString(2, Password);
                 st.executeQuery();
                 JOptionPane.showMessageDialog(null, "Registration Completed Successfully");
                 // CLEAR ALL FIELDS AFTER SUCCESSFUL REGISTRATION
