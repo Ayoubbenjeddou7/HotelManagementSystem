@@ -43,6 +43,7 @@ public class Register extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Hotel Management System - Register");
         setResizable(false);
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 102));
