@@ -125,7 +125,7 @@ public class HotelWelcomeScreen extends JFrame {
             footerPanel.setOpaque(false);
             footerPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
 
-            JLabel lblFooter = new JLabel("© 2023 Grand Horizon Hotels. All Rights Reserved.");
+            JLabel lblFooter = new JLabel("© 2025 Grande Horizon Hotels. All Rights Reserved.");
             lblFooter.setFont(new Font("Segoe UI", Font.PLAIN, 20));
             lblFooter.setForeground(new Color(0, 51, 102, 180));
 

@@ -251,7 +251,7 @@ public class ManageRoom extends javax.swing.JFrame {
             }
 
             try (Connection con = ConnectionProvider.getCon(); PreparedStatement statement = con.prepareStatement(
-                    "INSERT INTO CHAMBRE (capacite, prix, status_) VALUES (?, ?, ?)")) {
+                    "INSERT INTO CHAMBRE (capacite, prix, status) VALUES (?, ?, ?)")) {
 
                 statement.setInt(1, capacity);
                 statement.setFloat(2, price);
@@ -333,7 +333,7 @@ public class ManageRoom extends javax.swing.JFrame {
                 String price = txtprice.getText();
                 String status = selectstat.getSelectedItem().toString();
                 Connection con = ConnectionProvider.getCon();
-                PreparedStatement st = con.prepareStatement("UPDATE chambre SET capacite = ?,prix = ?,status_=? WHERE id_chambre=?");
+                PreparedStatement st = con.prepareStatement("UPDATE chambre SET capacite = ?,prix = ?,status=? WHERE id_chambre=?");
                 st.setString(1, capacity);
                 st.setString(2, price);
                 st.setString(3, status);

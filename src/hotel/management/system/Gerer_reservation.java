@@ -124,17 +124,14 @@ public class Gerer_reservation extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ajoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ajoutActionPerformed
-        this.setVisible(false); // Hide main frame
         new Add_reservation().setVisible(true);
     }//GEN-LAST:event_ajoutActionPerformed
 
     private void modificationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificationActionPerformed
-        this.setVisible(false); // Hide main frame
         new Modify_reservation().setVisible(true);
     }//GEN-LAST:event_modificationActionPerformed
 
     private void suppressionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suppressionActionPerformed
-        this.setVisible(false); // Hide main frame
         new supprimer_reservation().setVisible(true);
     }//GEN-LAST:event_suppressionActionPerformed
 
