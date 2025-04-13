@@ -1,4 +1,4 @@
-/*
+    /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
@@ -31,14 +31,13 @@ public class PopularRooms extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
         try (Connection con = ConnectionProvider.getCon(); Statement st = con.createStatement(); ResultSet rs = st.executeQuery(
-                "SELECT r.ID_CHAMBRE, c.TYPE, COUNT(*) AS NOMBRE_RESERVATIONS "
+                "SELECT r.ID_CHAMBRE, COUNT(*) AS NOMBRE_RESERVATIONS "
                 + "FROM reservation r JOIN chambre c ON r.ID_CHAMBRE = c.ID_CHAMBRE "
-                + "GROUP BY r.ID_CHAMBRE, c.TYPE ORDER BY NOMBRE_RESERVATIONS DESC")) {
+                + "GROUP BY r.ID_CHAMBRE ORDER BY NOMBRE_RESERVATIONS DESC")) {
 
             while (rs.next()) {
                 model.addRow(new Object[]{
                     rs.getInt("ID_CHAMBRE"),
-                    rs.getString("TYPE"),
                     rs.getInt("NOMBRE_RESERVATIONS")
                 });
             }
