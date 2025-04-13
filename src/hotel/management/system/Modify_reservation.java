@@ -380,7 +380,8 @@ public class Modify_reservation extends javax.swing.JFrame {
             String query = "SELECT 1 FROM reservation WHERE ID_CHAMBRE = ? "
                     + "AND ((DATE_DEBUT <= ? AND DATE_FIN >= ?) " // Overlap condition 1
                     + "OR (DATE_DEBUT >= ? AND DATE_DEBUT <= ?) " // Overlap condition 2
-                    + "OR (DATE_FIN >= ? AND DATE_FIN <= ?))";     // Overlap condition 3
+                    + "OR (DATE_FIN >= ? AND DATE_FIN <= ?))"
+                    + "AND id_reservation!=? ";     // Overlap condition 3
 
             pst = conn.prepareStatement(query);
             pst.setInt(1, idChambre);
@@ -390,7 +391,8 @@ public class Modify_reservation extends javax.swing.JFrame {
             pst.setDate(5, Date.valueOf(dateFin));    // Second condition end date
             pst.setDate(6, Date.valueOf(dateDebut));  // Third condition start date
             pst.setDate(7, Date.valueOf(dateFin));    // Third condition end date
-
+            int s=Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(),0).toString());
+            pst.setInt(8,s);
             rs = pst.executeQuery();
 
             // If the query returns a result, the room is not available
@@ -399,7 +401,7 @@ public class Modify_reservation extends javax.swing.JFrame {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         } finally {
             // Close resources
             try {
@@ -496,6 +498,48 @@ public class Modify_reservation extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
   // TODO add your handling code here:
+  
+    
+            String checkInStr, checkOutStr;
+            Date checkIn = null, checkOut = null;
+
+
+            checkInStr = txtDD.getText();
+            checkOutStr = txtDF.getText();
+
+            // Convert String to Date object for validation
+            checkIn = Date.valueOf(checkInStr);
+            checkOut = Date.valueOf(checkOutStr);
+
+            // Check if end date is after start date
+            if (!checkOut.after(checkIn)) {
+                JOptionPane.showMessageDialog(this, "La date de fin doit être après la date de début",
+                    "Erreur de dates", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Check if dates are in the future
+            Date today = new Date(System.currentTimeMillis());
+            if (!checkIn.after(today)) {
+                JOptionPane.showMessageDialog(this, "La date de début doit être dans le futur",
+                    "Erreur de date", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Get room ID
+            int idChambre = Integer.parseInt(cmbChambre.getSelectedItem().toString());
+
+
+
+            // Check room availability
+            if (isRoomAvailable(idChambre, checkInStr, checkOutStr)) {
+                JOptionPane.showMessageDialog(this, "La chambre est disponible !", "Disponibilité", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "La chambre est déjà réservée pour cette période.",
+                    "Indisponible", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
         int selectedRow = jTable1.getSelectedRow();
 
         if (selectedRow == -1) {
@@ -532,6 +576,11 @@ public class Modify_reservation extends javax.swing.JFrame {
                 } else {
                     JOptionPane.showMessageDialog(null, "No record was updated");
                 }
+                
+                cmbChambre.setSelectedItem(-1);
+                cmbIDClient.setSelectedItem(-1);
+                txtDD.setText("");
+                txtDF.setText("");
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Error updating record: " + ex.getMessage());
                 ex.printStackTrace();

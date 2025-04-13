@@ -564,7 +564,6 @@ public class Add_reservation extends javax.swing.JFrame {
                 return;
             }
 
-            // Validate dates
             String checkInStr, checkOutStr;
             Date checkIn = null, checkOut = null;
 
